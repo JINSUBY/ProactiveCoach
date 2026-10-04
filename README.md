@@ -1,5 +1,7 @@
 # ProactiveCoach: supplementary research code
 
+**Project page:** [https://jinsuby.github.io/ProactiveCoach/](https://jinsuby.github.io/ProactiveCoach/)
+
 Code accompanying **Improving Proactive AI Assistance with Hierarchical Procedural Understanding**.
 
 This archive preserves all 28 supplied research files byte-for-byte and adds release documentation and a static verification utility. It includes streaming supervised fine-tuning, inference, guidance-level routing, and evaluation.
