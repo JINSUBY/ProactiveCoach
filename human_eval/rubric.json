@@ -1,0 +1,58 @@
+{
+  "alignment": {
+    "title": "Video alignment",
+    "en": "Video alignment",
+    "question": "Do the annotated executions and their temporal spans match the video, and is the guidance timing appropriate given prior progress?",
+    "note": "Assess the linked execution spans and guidance timing separately, then consider them together. Guidance may precede the next action, so the guided action need not be visible at the moment of delivery. Assign a high score only when both aspects are appropriate.",
+    "anchors": [
+      "The annotated executions or spans clearly contradict the video, or the guidance timing is entirely inconsistent with progress.",
+      "There are very large errors in the annotated executions, their spans, or the guidance timing.",
+      "There are important errors in the annotated executions, their spans, or the guidance timing, requiring substantial correction.",
+      "The core execution is correct, but its span or guidance timing clearly needs correction.",
+      "The execution and its span are correct, and guidance timing is generally appropriate, requiring only minor corrections.",
+      "The execution and its span accurately match the video, and guidance timing is appropriate for the observed progress."
+    ]
+  },
+  "coverage": {
+    "title": "Hierarchical coverage",
+    "en": "Hierarchical coverage",
+    "question": "Do the provided child executions sufficiently cover what is needed to complete the parent task?",
+    "note": "Consider all child units under the parent task and assess whether any necessary executions are missing.",
+    "anchors": [
+      "Almost none of the essential child executions needed to complete the parent task are included.",
+      "Most essential child executions are missing.",
+      "Several essential child executions are missing, requiring major additions.",
+      "Much of the required content is covered, but important child executions are missing.",
+      "The essential executions are generally covered, with only minor omissions.",
+      "The child executions sufficiently cover what is needed to complete the parent task."
+    ]
+  },
+  "relevance": {
+    "title": "Goal relevance",
+    "en": "Goal relevance",
+    "question": "Do the executions selected for guidance contribute to achieving the task goal?",
+    "note": "Evaluate the selection of guidance targets. Consider whether irrelevant executions have been selected unnecessarily. Assess the clarity of the wording separately under guidance quality.",
+    "anchors": [
+      "The selected executions do not contribute to achieving the goal.",
+      "The selected executions have very little relevance to the goal and are mostly unnecessary.",
+      "Some selected executions are relevant, but a substantial number do not contribute to the goal.",
+      "The selected executions contribute to the goal, but include some unnecessary executions.",
+      "The selected executions contribute directly or through preparatory or supporting steps, with only minor unnecessary elements.",
+      "The selected executions clearly contribute to achieving the goal, with no unnecessary guidance targets."
+    ]
+  },
+  "quality": {
+    "title": "Guidance quality",
+    "en": "Guidance quality",
+    "question": "Does the guidance describe the selected execution accurately, clearly, and actionably at the intended level of granularity?",
+    "note": "Evaluate how the selected execution is communicated. Do not include goal relevance or guidance timing in this score.",
+    "anchors": [
+      "The guidance describes the selected execution incorrectly, or it is impossible to understand what to do.",
+      "Severe inaccuracies or ambiguity make the selected execution difficult to carry out.",
+      "There are important problems with the content, clarity, or intended scope, requiring substantial correction.",
+      "The core guidance is understandable, but ambiguous wording or the scope of the guidance needs correction.",
+      "The guidance conveys the selected execution accurately and actionably, requiring only minor wording improvements.",
+      "The guidance conveys the selected execution accurately, clearly, and actionably, with a scope appropriate to the intended level."
+    ]
+  }
+}
