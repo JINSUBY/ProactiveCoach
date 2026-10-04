@@ -1,61 +1,44 @@
-# ProactiveCoach: supplementary research code
+# ProactiveCoach
 
-**Project page:** [https://jinsuby.github.io/ProactiveCoach/](https://jinsuby.github.io/ProactiveCoach/)
+**Improving Proactive AI Assistance with Hierarchical Procedural Understanding**
 
-Code accompanying **Improving Proactive AI Assistance with Hierarchical Procedural Understanding**.
+[Project page](https://jinsuby.github.io/ProactiveCoach/) · [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) · [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
 
-This archive preserves all 28 supplied research files byte-for-byte and adds release documentation and a static verification utility. It includes streaming supervised fine-tuning, inference, guidance-level routing, and evaluation.
+ProactiveCoach connects **phases, steps, and actions** to help an assistant decide what to say, when to respond, and how much detail to provide during a procedural task.
 
-**Reproduction status:** training, inference, and paper results have not been reproduced during release preparation. Datasets, benchmark anchors, trained checkpoints, and a tested dependency lockfile are not included. See [release notes](docs/RELEASE_NOTES.md) for outstanding items.
+## Highlights
 
-## Entry points
+- **Hierarchical guidance:** joint training across three procedural levels, with a lightweight router that adapts the displayed guidance to user requests.
+- **Data and evaluation:** ProactiveCoach-Instruct contains 10,007 training samples; ProactiveCoachBench contains 1,112 evaluation samples.
+- **Interactive examples:** five HoloAssist videos with synchronized phase, step, and action annotations. Each video plays from the beginning. The [annotation preview](site/examples.json) contains 30 cases.
 
-| File | Purpose |
-| --- | --- |
-| `train.py` | Streaming SFT for Qwen3.5 or Qwen3-VL |
-| `scripts/train.sh` | Bash/torchrun launcher with DeepSpeed ZeRO stage 1 |
-| `infer.py` | Supplied-anchor inference with ground-truth history, or dense generated-history demos |
-| `evaluate.py` | Per-level decision, semantic, and PQS scoring; judge-request export |
-| `route.py` | Replay user requests over saved predictions to select guidance level |
-| `scripts/judge_pqs.py` | Submit exported PQS prompts to the configured API judge |
-| `human_eval/aggregate.py` | Aggregate human-rating CSVs using the supplied rubric |
+## Results
 
-`proactivecoach/` contains model, attention, video, collation, supervision, inference, and routing code. `evaluation/` contains alignment, parsing, metrics, and judge prompts. See [file inventory](FILE_INVENTORY.md).
+Hierarchical supervision improves step-level Avg. across four backbones on ProactiveCoachBench (paper, Table 3). Gains are absolute score points.
 
-## Environment
+| Backbone | Step-only | Hierarchical | Gain |
+| --- | ---: | ---: | ---: |
+| Qwen3-VL-4B | 49.32 | 58.96 | +9.64 |
+| Qwen3-VL-8B | 53.07 | 59.37 | +6.30 |
+| Qwen3.5-4B | 50.06 | 59.30 | +9.24 |
+| Qwen3.5-9B | 51.18 | 58.81 | +7.63 |
 
-Run commands from this directory. Python 3.12.10 passed syntax and CLI-help checks; this is not a validated training environment. No package pins, CUDA version, or hardware specification were supplied. See [dependency inventory](docs/DEPENDENCIES.md); installing arbitrary current versions is not a verified reproduction recipe.
+See the [project page](https://jinsuby.github.io/ProactiveCoach/#results) for multi-level results and metric definitions.
 
-Create an isolated environment with an available Python 3.12 installation, then provision compatible dependencies from the authors' environment:
+## Getting started
+
+Training, inference, and routing require a compatible CUDA environment. Start with Python 3.12 and provision the packages listed in [Dependencies](docs/DEPENDENCIES.md). A locked environment, full training data, benchmark anchors, and trained checkpoints are not included.
 
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-```
-
-Training, inference, and routing require CUDA in the supplied implementation. Training uses BF16 and selects FlashAttention 2 for vision attention. No minimum GPU memory requirement is claimed.
-
-Safe source-only checks, without training dependencies:
-
-```bash
 python tools/verify_source.py
 python train.py --help
-python infer.py --help
-python evaluate.py --help
-python route.py --help
-python scripts/judge_pqs.py --help
-python human_eval/aggregate.py --help
 ```
 
-## Data and models
+Prepare videos and JSONL records using the [data formats](docs/DATA_FORMATS.md), and supply a compatible model checkpoint. The paths below are examples.
 
-Supply videos, training/evaluation JSONL records, and an official benchmark-anchor JSONL according to [data contracts](docs/DATA_FORMATS.md). No downloader, annotation-conversion pipeline, official split files, dataset download link, or trained checkpoint link is present in the source archive.
-
-The training default is `Qwen/Qwen3.5-4B`, exactly as supplied. Its availability and runtime compatibility were not verified. Inference requires a model/checkpoint and its processor files; routing requires a separate causal-language-model checkpoint chosen by the user. External models and datasets retain their own terms.
-
-## Training
-
-Once missing inputs and a compatible environment are available, the existing launcher accepts:
+### Training
 
 ```bash
 export TRAIN_JSONL=data/train.jsonl
@@ -67,15 +50,9 @@ export NPROC_PER_NODE=1
 bash scripts/train.sh
 ```
 
-These paths are placeholders. Select allocated GPUs with `CUDA_VISIBLE_DEVICES`. For Qwen3-VL, set `MODEL_TYPE=qwen3vl` and provide a compatible `MODEL`. Additional `train.py` arguments can follow the launcher. Use a new output directory.
+For Qwen3-VL, use `MODEL_TYPE=qwen3vl` with a compatible `MODEL`. Set `CUDA_VISIBLE_DEVICES` for your allocated GPUs and use a new output directory. **Before training, resolve the supplied `warmup_steps=0.05` setting**; see [training notes](docs/RELEASE_NOTES.md#review-before-experiments-or-publication).
 
-Defaults include a five-chunk visual window, two-second chunks, 98,304 maximum tokens, microbatch size 2, gradient accumulation 4, three epochs, and learning rate 2e-5. These can be expensive; they are not hardware recommendations. The loader refuses to truncate overlength sequences.
-
-**Review before training:** `train.py` passes `warmup_steps=0.05`. The name denotes steps, while the fractional value may indicate an intended ratio. Confirm the original library behavior and author intent; this release does not silently convert it to `warmup_ratio` or an integer. See [release notes](docs/RELEASE_NOTES.md).
-
-## Inference and evaluation
-
-The following are command templates, not completed experiment runs:
+### Inference and evaluation
 
 ```bash
 mkdir -p outputs
@@ -88,37 +65,21 @@ python evaluate.py --data data/eval.jsonl --anchors data/anchors.jsonl \
   --skip-semantic --export-judge-requests outputs/judge-requests.jsonl
 ```
 
-Benchmark evaluation requires ground-truth history and exact prediction/anchor coverage. `--history generated` requires all chunks starting at zero for every selected video and is a demo mode; its predictions are rejected by benchmark evaluation.
+Benchmark evaluation requires ground-truth history and matching prediction/anchor coverage. Generated-history inference is a demo mode. The command above produces decision scores; full semantic and PQS scoring additionally require the semantic model and judge outputs. API judging sends evaluation content to the configured external service and may incur charges.
 
-`--skip-semantic` leaves sP/sR/sF1 null. Missing required judgments leave PQS null. Avg is null unless sF1 and PQS are both available. Null metrics are not reproduced results.
+## Code guide
 
-Optional paid judging sends reference guidance, predicted guidance, and task context to the API. Supply `OPENAI_API_KEY` securely in the environment before explicitly running:
+| Entry point | Purpose |
+| --- | --- |
+| `train.py`, `scripts/train.sh` | Streaming supervised fine-tuning |
+| `infer.py` | Anchored inference and generated-history demos |
+| `evaluate.py` | Decision, semantic, and PQS evaluation |
+| `route.py` | Guidance-level routing over saved predictions |
+| `scripts/judge_pqs.py` | API judging for PQS |
+| `human_eval/aggregate.py` | Human-rating aggregation |
 
-```bash
-python scripts/judge_pqs.py --requests outputs/judge-requests.jsonl \
-  --output outputs/judgments.jsonl
-python evaluate.py --data data/eval.jsonl --anchors data/anchors.jsonl \
-  --predictions outputs/predictions.jsonl --judgments outputs/judgments.jsonl \
-  --output outputs/full-scores.json
-```
+Each entry point provides `--help`. See [data formats](docs/DATA_FORMATS.md), [dependencies](docs/DEPENDENCIES.md), and the [file inventory](FILE_INVENTORY.md) for details.
 
-The source fixes the judge identity to `gpt-5.2`. Full semantic scoring loads `sentence-transformers/all-mpnet-base-v2` on CPU by default. Neither model availability nor API access was verified; no paid calls were made.
+## License and acknowledgments
 
-## Routing and human evaluation
-
-```bash
-python route.py --model checkpoints/router --predictions outputs/predictions.jsonl \
-  --requests data/requests.jsonl --output outputs/routed.jsonl \
-  --initial-level Step --device cuda:0
-python human_eval/aggregate.py data/ratings.csv --output outputs/human-scores.json
-```
-
-Create output parent directories first. Most entry points require new output filenames; the judge driver appends/resumes by request ID. Routing replays saved packets and waits for each routing result; it is not a complete live UI.
-
-## Naming, provenance, and license
-
-The source and supplied manuscript use **ProactiveCoach**, with **ProactiveCoach-Instruct** and **ProactiveCoachBench** in the manuscript. No HUPPA occurrence was found in the original source. `THINKSTREAM_*` names and legacy parsing remain for implementation provenance and compatibility.
-
-The supplied [LICENSE](LICENSE) includes an MIT license, a 2026 CASIA-IVA-Lab copyright notice, and ThinkStream/third-party attribution. It is unchanged. Maintainers should confirm that this notice and permission cover the complete release before publication. No license was invented or substituted.
-
-No paper PDF, weights, dataset, results, or private account metadata are bundled. A final paper/project link and author-approved citation remain to be supplied. See [verification results](docs/VERIFICATION.md).
+See [LICENSE](LICENSE) for the code license and third-party notices. Example videos are from [HoloAssist](https://holoassist.github.io/) under [CDLA-Permissive 2.0](site/licenses/CDLA-Permissive-2.0.txt); see [video credits](docs/VIDEO_SAMPLE.md). External models and datasets retain their own licenses.

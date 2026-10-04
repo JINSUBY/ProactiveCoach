@@ -44,14 +44,14 @@
   }
   function renderInspector() {
     const target = $('event-inspector'); target.replaceChildren();
-    if (!selected) { target.append(el('p', 'note', 'Select an event bar, guidance marker, or list entry to inspect its exact annotation.')); return; }
+    if (!selected) { target.append(el('p', 'note', 'Select an event or guidance marker to view its annotation.')); return; }
     const u = record.units[selected.level].find(x => x.index === selected.index);
     target.append(el('span', `unit-tag ${selected.level}`, `${title(selected.level)} ${u.number}`));
     target.append(el('h4', '', u.text));
     const timing = el('dl', 'event-facts');
     [['Original event span', `${sec(u.start)} – ${sec(u.end)}`], ['Original guidance timestamp', u.guide_time === null ? 'None recorded' : sec(u.guide_time)], ['Parent', u.parent === null ? 'Task' : `${title(levels[levels.indexOf(selected.level) - 1])} ${record.units[levels[levels.indexOf(selected.level) - 1]].find(p => p.index === u.parent)?.number ?? u.parent}`]].forEach(([k, v]) => { timing.append(el('dt', '', k), el('dd', '', v)); });
     target.append(timing, el('blockquote', '', u.guide === null ? 'No guidance annotation for this event.' : u.guide));
-    target.append(el('p', 'note', 'Original annotation timestamps are unchanged. Playback begins at original-review time zero. Event spans and guidance timestamps are preserved.'));
+    target.append(el('p', 'note', 'Guidance may precede the event.'));
   }
   function renderList() {
     const list = $('annotation-list'); list.replaceChildren();
@@ -155,7 +155,7 @@
     if (media) {
       video.src = media.src; video.poster = media.poster; video.playbackRate = Number($('playback-speed').value);
       $('download-video').href = media.src;
-      $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} · full procedure from 0 s. Silent, web-compressed source video (10 fps).`;
+      $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} · from 0 s · silent video.`;
     } else { video.removeAttribute('src'); video.removeAttribute('poster'); }
     video.load();
     $('annotation-play').textContent = mediaAvailable ? 'Play video' : 'Play annotations';
@@ -169,7 +169,7 @@
     const phase = $('phase-filter'); phase.replaceChildren(new Option('All phases', 'all'));
     record.units.phase.filter(inExcerpt).forEach(u => phase.append(new Option(`${u.number} · ${u.text}`, u.index)));
     renderLevels(); renderTimeline(); renderList(); renderInspector(); seek(clipStart()); $('annotation-list').scrollTop = 0;
-    $('explorer-status').textContent = `${cases.length} full-procedure video examples · original annotations preserved · ground truth`;
+    $('explorer-status').textContent = `${cases.length} video examples · ground-truth guidance`;
   }
   $('example-select').addEventListener('change', e => loadCase(e.target.value));
   $('phase-filter').addEventListener('change', () => { stop(); selected = null; seek.lastKey = null; renderTimeline(); renderList(); renderInspector(); seek(cursor); });
@@ -213,5 +213,5 @@
     document.querySelectorAll('#examples [disabled]').forEach(b => b.disabled = false);
     const first = cases.find(x => mediaCatalog[x.id]) || cases[0];
     select.value = first.id; loadCase(first.id);
-  }).catch(() => { $('explorer-status').textContent = 'The preview could not load. Reload this page or use the dataset preview link.'; });
+  }).catch(() => { $('explorer-status').textContent = 'Examples could not load. Reload or open the dataset preview.'; });
 })();
