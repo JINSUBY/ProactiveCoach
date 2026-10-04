@@ -1,0 +1,175 @@
+/* Ground-truth preview explorer. No video or model output is synthesized. */
+(() => {
+  'use strict';
+  const levels = ['phase', 'step', 'action'];
+  const $ = id => document.getElementById(id);
+  const title = s => s[0].toUpperCase() + s.slice(1);
+  const sec = n => `${n} s`;
+  const el = (tag, cls, text) => {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+  let cases = [], record, level = 'step', cursor = 0, selected = null;
+  let playing = false, frame = null, previousFrame = null, clock = 0;
+  const eventTime = u => u.guide_time === null ? u.start : u.guide_time;
+  const stable = units => [...units].sort((a, b) => eventTime(a) - eventTime(b) || a.index - b.index);
+  const phaseIndex = (lv, u) => lv === 'phase' ? u.index : lv === 'step' ? u.parent : record.units.step.find(s => s.index === u.parent)?.parent;
+  const subset = lv => record.units[lv].filter(u => $('phase-filter').value === 'all' || phaseIndex(lv, u) === Number($('phase-filter').value));
+  function stop() {
+    playing = false; previousFrame = null; cancelAnimationFrame(frame);
+    $('annotation-play').textContent = 'Play annotations';
+    $('annotation-play').setAttribute('aria-pressed', 'false');
+  }
+  function choose(lv, unit) {
+    stop(); level = lv; selected = {level: lv, index: unit.index};
+    renderLevels(); renderList(); renderInspector(); seek(eventTime(unit));
+    $('event-status').textContent = `Selected ${lv} ${unit.number}. ${unit.guide_time === null ? 'No guidance; showing event start' : 'Guidance at'} ${sec(eventTime(unit))}.`;
+  }
+  function renderLevels() {
+    document.querySelectorAll('[data-explorer-level]').forEach(button => {
+      const active = button.dataset.explorerLevel === level;
+      button.setAttribute('aria-pressed', String(active));
+    });
+  }
+  function renderInspector() {
+    const target = $('event-inspector'); target.replaceChildren();
+    if (!selected) { target.append(el('p', 'note', 'Select an event bar, guidance marker, or list entry to inspect its exact annotation.')); return; }
+    const u = record.units[selected.level].find(x => x.index === selected.index);
+    target.append(el('span', `unit-tag ${selected.level}`, `${title(selected.level)} ${u.number}`));
+    target.append(el('h4', '', u.text));
+    const timing = el('dl', 'event-facts');
+    [['Event span', `${sec(u.start)} – ${sec(u.end)}`], ['Guidance timestamp', u.guide_time === null ? 'None recorded' : sec(u.guide_time)], ['Parent', u.parent === null ? 'Task' : `${title(levels[levels.indexOf(selected.level) - 1])} ${record.units[levels[levels.indexOf(selected.level) - 1]].find(p => p.index === u.parent)?.number ?? u.parent}`]].forEach(([k, v]) => { timing.append(el('dt', '', k), el('dd', '', v)); });
+    target.append(timing, el('blockquote', '', u.guide === null ? 'No guidance annotation for this event.' : u.guide));
+    target.append(el('p', 'note', 'Exact ground-truth wording and timestamps from the preview. Event execution and guidance timing are separate.'));
+  }
+  function renderList() {
+    const list = $('annotation-list'); list.replaceChildren();
+    const units = stable(subset(level));
+    $('event-count').textContent = `${units.length} ${level} events · ordered by guidance time (event start when no guide)`;
+    units.forEach(u => {
+      const button = el('button', 'event-card'); button.type = 'button';
+      button.dataset.unitIndex = u.index;
+      button.setAttribute('aria-pressed', String(selected?.level === level && selected.index === u.index));
+      const stamp = el('span', 'event-stamp', u.guide_time === null ? 'No guide' : sec(u.guide_time));
+      const body = el('span', 'event-copy');
+      body.append(el('strong', '', `${u.number} · ${u.text}`), el('span', '', u.guide === null ? 'No guidance annotation.' : u.guide), el('small', '', `Event: ${sec(u.start)} – ${sec(u.end)}`));
+      button.append(stamp, body); button.addEventListener('click', () => choose(level, u)); list.append(button);
+    });
+  }
+  function renderTimeline() {
+    const host = $('timeline-lanes'); host.replaceChildren();
+    const duration = record.video.duration;
+    levels.forEach(lv => {
+      const row = el('div', `timeline-row ${lv}`), label = el('span', 'track-name', title(lv));
+      const track = el('div', 'track'); track.setAttribute('aria-label', `${title(lv)} annotated events`);
+      const units = [...subset(lv)].sort((a, b) => a.start - b.start || a.index - b.index);
+      const occupied = [];
+      units.forEach(u => {
+        let lane = occupied.findIndex(end => end <= u.start);
+        if (lane < 0) lane = occupied.length;
+        occupied[lane] = u.end;
+        const band = el('button', 'event-band', u.number); band.type = 'button';
+        band.style.left = `${u.start / duration * 100}%`;
+        band.style.width = `${Math.max((u.end - u.start) / duration * 100, .15)}%`;
+        band.style.top = `${lane * 38 + 22}px`;
+        band.dataset.level = lv; band.dataset.unitIndex = u.index;
+        band.title = `${title(lv)} ${u.number}: ${u.text}. Event ${sec(u.start)} – ${sec(u.end)}`;
+        band.setAttribute('aria-label', band.title);
+        band.addEventListener('click', () => choose(lv, u)); track.append(band);
+        if (u.guide_time !== null) {
+          const marker = el('button', 'guidance-marker'); marker.type = 'button';
+          marker.style.left = `${u.guide_time / duration * 100}%`; marker.style.top = `${lane * 38}px`;
+          marker.dataset.level = lv; marker.dataset.unitIndex = u.index;
+          marker.title = `${title(lv)} ${u.number} guidance at ${sec(u.guide_time)}: ${u.guide}`;
+          marker.setAttribute('aria-label', marker.title);
+          marker.addEventListener('click', () => choose(lv, u)); track.append(marker);
+        }
+      });
+      track.style.height = `${Math.max(1, occupied.length) * 38 + 12}px`;
+      track.append(el('span', 'track-playhead'));
+      if (!units.length) track.append(el('span', 'note', 'No events in this phase'));
+      row.append(label, track); host.append(row);
+    });
+    $('timeline-ticks').replaceChildren(...[0, .25, .5, .75, 1].map(f => el('span', '', sec(Number((duration * f).toFixed(3))))));
+  }
+  function renderGuidance() {
+    levels.forEach(lv => {
+      const eligible = subset(lv).filter(u => u.guide !== null && u.guide_time !== null && u.guide_time <= cursor);
+      const last = eligible.length ? Math.max(...eligible.map(u => u.guide_time)) : null;
+      const rows = last === null ? [] : eligible.filter(u => u.guide_time === last).sort((a, b) => a.index - b.index);
+      const slot = $(`latest-${lv}`); slot.replaceChildren();
+      if (!rows.length) slot.append(el('p', '', 'No guidance annotation at or before this time.'));
+      else rows.forEach(u => {
+        const b = el('button', 'latest-guide'); b.type = 'button';
+        b.append(el('span', 'guide-issued', `${u.number} · issued at ${sec(u.guide_time)}`), el('span', '', u.guide));
+        b.addEventListener('click', () => choose(lv, u)); slot.append(b);
+      });
+    });
+  }
+  function seek(value) {
+    cursor = Math.max(0, Math.min(record.video.duration, Number(value)));
+    $('annotation-seek').value = cursor;
+    $('annotation-seek').setAttribute('aria-valuetext', `${sec(cursor)} of ${sec(record.video.duration)}, clip-relative`);
+    $('cursor-time').textContent = sec(cursor);
+    document.querySelectorAll('.track-playhead').forEach(p => p.style.left = `${cursor / record.video.duration * 100}%`);
+    document.querySelectorAll('.event-band').forEach(b => {
+      const u = record.units[b.dataset.level].find(u => u.index === Number(b.dataset.unitIndex));
+      b.classList.toggle('is-active', u.start <= cursor && cursor < u.end);
+      b.classList.toggle('is-selected', selected?.level === b.dataset.level && selected.index === u.index);
+    });
+    const key = levels.map(lv => subset(lv).filter(u => u.guide_time !== null && u.guide_time <= cursor).map(u => u.index).join(',')).join('|');
+    if (key !== seek.lastKey) { renderGuidance(); seek.lastKey = key; }
+    const times = guidanceTimes();
+    $('previous-guide').disabled = !times.some(t => t < cursor - .000001);
+    $('next-guide').disabled = !times.some(t => t > cursor + .000001);
+  }
+  function guidanceTimes() { return [...new Set(levels.flatMap(lv => subset(lv).filter(u => u.guide_time !== null).map(u => u.guide_time)))].sort((a, b) => a - b); }
+  function tick(now) {
+    if (!playing) return;
+    if (previousFrame !== null) clock += (now - previousFrame) / 1000 * Number($('playback-speed').value);
+    previousFrame = now; seek(Math.min(record.video.duration, Math.round(clock * 1000) / 1000));
+    if (cursor >= record.video.duration) stop(); else frame = requestAnimationFrame(tick);
+  }
+  function loadCase(id) {
+    stop(); record = cases.find(x => x.id === id); selected = null; seek.lastKey = null;
+    $('case-goal').textContent = record.goal; $('case-query').textContent = record.query;
+    $('case-info').textContent = `${record.id} · ${record.video.source_dataset} · ${record.video.domain} · ${sec(record.video.duration)} · test split`;
+    $('media-record').textContent = record.video.record_id;
+    $('media-interval').textContent = `${sec(record.video.clip_start)} – ${sec(record.video.clip_end)}`;
+    $('media-dataset').textContent = record.video.source_dataset;
+    $('clip-duration').textContent = sec(record.video.duration);
+    $('annotation-seek').max = record.video.duration;
+    const phase = $('phase-filter'); phase.replaceChildren(new Option('All phases', 'all'));
+    record.units.phase.forEach(u => phase.append(new Option(`${u.number} · ${u.text}`, u.index)));
+    renderLevels(); renderTimeline(); renderList(); renderInspector(); seek(0);
+    $('explorer-status').textContent = `${cases.length} actual preview cases · 548 annotated events · ground truth`;
+  }
+  $('example-select').addEventListener('change', e => loadCase(e.target.value));
+  $('phase-filter').addEventListener('change', () => { stop(); selected = null; seek.lastKey = null; renderTimeline(); renderList(); renderInspector(); seek(cursor); });
+  document.querySelectorAll('[data-explorer-level]').forEach(b => b.addEventListener('click', () => { level = b.dataset.explorerLevel; selected = null; renderLevels(); renderList(); renderInspector(); seek(cursor); }));
+  $('annotation-seek').addEventListener('input', e => { stop(); seek(e.target.value); });
+  $('annotation-play').addEventListener('click', () => {
+    if (!record) return;
+    if (playing) { stop(); return; }
+    if (cursor >= record.video.duration) seek(0);
+    playing = true; clock = cursor; previousFrame = null;
+    $('annotation-play').textContent = 'Pause annotations'; $('annotation-play').setAttribute('aria-pressed', 'true'); frame = requestAnimationFrame(tick);
+  });
+  $('previous-guide').addEventListener('click', () => { stop(); const t = guidanceTimes().filter(t => t < cursor - .000001); if (t.length) seek(t[t.length - 1]); });
+  $('next-guide').addEventListener('click', () => { stop(); const t = guidanceTimes().find(t => t > cursor + .000001); if (t !== undefined) seek(t); });
+  $('download-case').addEventListener('click', () => {
+    if (!record) return;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(record, null, 2)], {type: 'application/json'}));
+    const link = el('a'); link.href = url; link.download = `${record.id}-ground-truth.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  fetch('examples.json').then(r => { if (!r.ok) throw Error('Preview unavailable'); return r.json(); }).then(data => {
+    cases = data;
+    const select = $('example-select'); select.replaceChildren();
+    cases.forEach(x => select.append(new Option(`${x.id} · ${x.goal}`, x.id)));
+    document.querySelectorAll('#examples [disabled]').forEach(b => b.disabled = false);
+    loadCase(cases[0].id);
+  }).catch(() => { $('explorer-status').textContent = 'The preview could not load. Reload this page or use the dataset preview link.'; });
+})();
