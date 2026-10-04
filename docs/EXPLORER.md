@@ -1,18 +1,17 @@
 # Actual-data explorer
 
-The project page includes all 30 records from review-sample-v0.2 of the approved anonymous dataset preview. `site/examples.json` preserves each annotation record and appends its matching video metadata under `video`. Record IDs, original ordering, hierarchical parent indices, text, start/end, guide, and guide_time are unchanged.
+The project page displays five short video excerpts: H083, H086, H123, H154 and H081. The full 30-record review-sample-v0.2 dataset remains intact in `site/examples.json`, with original annotation fields and matching video metadata under `video`. `site/featured-examples.json` limits the UI without deleting source records. Selection rationale, source-video hashes and license details are in [VIDEO_SAMPLE.md](VIDEO_SAMPLE.md).
 
 Annotation-source SHA-256: `81abfacbabec1a73ff6f2268fdf5bfa8a7528ae0301273eb5427fca4dbcec5ab`.
 Video-metadata SHA-256: `bd73da902bf25b7c1053acf82013193b45e8afccb8f35fcb0b319816186df9ef`.
-
 Source preview: https://anonymous.4open.science/r/dataset-review-7c3e/
 
 ## Timing behavior
 
-Guidance markers use guide_time, not event start. Bars use start/end. Marker and list selection seek to the exact recorded guidance time, or event start for a null guide. Equal-time guidance at each level is shown together. Latest guidance is explicitly held for inspection, not interpreted as continuous model speech. Null guides are not model silence. Arrays may be nonchronological; display sorting does not change source data. Phase filtering follows parent indices. Changing cases pauses and resets the annotation clock.
+Guidance markers use guide_time, not event start. Bars use start/end. Selection seeks to exact guidance time, or event start for a null guide. Equal-time guidance at each level is shown together. Latest guidance is held for inspection, not continuous model speech. Null guides are not model silence. Display sorting does not modify source arrays. Phase filtering follows parent indices. Changing examples pauses and resets playback. Native video controls and the annotation timeline share an excerpt clock; original-review time equals playback time plus excerpt_start. Original timestamps remain in the inspector. Prior phase/step guidance is retained as explicitly labeled earlier context. See VIDEO_SAMPLE.md for exact intervals and boundary behavior.
 
-## Missing media
+## Media
 
-No usable media URL or original video is included in the preview metadata. `site/media-requirements.json` lists every required record, source dataset, clip interval, duration, and suggested clip filename. To enable a real video panel, supply publicly reusable clips or stable HTTPS URLs, confirm source terms and permissions, and confirm that video time zero matches annotation clip time zero. For multi-camera datasets, specify the intended camera. Source record suffixes and source timeline mapping still have TODOs in the supplied data dictionary; do not guess them.
+Five short, compressed derivatives of licensed HoloAssist review clips are bundled with CDLA-Permissive 2.0 text and attribution. These are 27–40 second excerpts at normal speed, encoded at 10 fps and silent. Only the derivatives are bundled; the original source clips are preserved outside the public repository. All existing corrected annotations are preserved. Other records remain available in the complete JSON file, but are not in the five-example UI. `site/media-requirements.json` retains the original full inventory and records which clips are available. Adding further videos requires confirmed source terms and matching clip time zero; source record suffixes and multi-camera mappings must not be guessed.
 
-No third-party video is fetched or redistributed by this explorer. It uses annotation-only playback and clearly identifies ground truth. Existing research code and manuscript metrics remain unchanged.
+No model outputs or synthetic videos were added. Existing research code and manuscript metrics are unchanged.

@@ -73,9 +73,11 @@
     "clip_end": 130,
     "duration": 130,
     "required_filename": "H154.mp4",
-    "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H154.mp4",
+    "time_zero": "Short excerpt: playback 0 = original review time 18 s; ends at 45 s. Original annotations are preserved.",
+    "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
+    "excerpt_start": 18,
+    "excerpt_end": 45
   },
   {
     "case_id": "H085",
@@ -164,9 +166,11 @@
     "clip_end": 116,
     "duration": 116,
     "required_filename": "H083.mp4",
-    "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H083.mp4",
+    "time_zero": "Short excerpt: playback 0 = original review time 39 s; ends at 69 s. Original annotations are preserved.",
+    "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
+    "excerpt_start": 39,
+    "excerpt_end": 69
   },
   {
     "case_id": "H065",
@@ -216,9 +220,11 @@
     "clip_end": 166,
     "duration": 166,
     "required_filename": "H123.mp4",
-    "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H123.mp4",
+    "time_zero": "Short excerpt: playback 0 = original review time 92 s; ends at 132 s. Original annotations are preserved.",
+    "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
+    "excerpt_start": 92,
+    "excerpt_end": 132
   },
   {
     "case_id": "H064",
@@ -359,9 +365,11 @@
     "clip_end": 130,
     "duration": 130,
     "required_filename": "H081.mp4",
-    "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H081.mp4",
+    "time_zero": "Short excerpt: playback 0 = original review time 98 s; ends at 130 s. Original annotations are preserved.",
+    "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
+    "excerpt_start": 98,
+    "excerpt_end": 130
   },
   {
     "case_id": "H144",
@@ -385,8 +393,10 @@
     "clip_end": 168,
     "duration": 168,
     "required_filename": "H086.mp4",
-    "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H086.mp4",
+    "time_zero": "Short excerpt: playback 0 = original review time 124 s; ends at 164 s. Original annotations are preserved.",
+    "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
+    "excerpt_start": 124,
+    "excerpt_end": 164
   }
 ]
