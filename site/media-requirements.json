@@ -73,11 +73,11 @@
     "clip_end": 130,
     "duration": 130,
     "required_filename": "H154.mp4",
-    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H154.mp4",
-    "time_zero": "Short excerpt: playback 0 = original review time 18 s; ends at 45 s. Original annotations are preserved.",
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H154.mp4?v=963ccf57e599",
+    "time_zero": "Playback starts at original review time zero. Full source video used because it is shorter than 180 seconds.",
     "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
-    "excerpt_start": 18,
-    "excerpt_end": 45
+    "excerpt_start": 0,
+    "excerpt_end": 130.1
   },
   {
     "case_id": "H085",
@@ -166,11 +166,11 @@
     "clip_end": 116,
     "duration": 116,
     "required_filename": "H083.mp4",
-    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H083.mp4",
-    "time_zero": "Short excerpt: playback 0 = original review time 39 s; ends at 69 s. Original annotations are preserved.",
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H083.mp4?v=136268a0c638",
+    "time_zero": "Playback starts at original review time zero. Full source video used because it is shorter than 180 seconds.",
     "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
-    "excerpt_start": 39,
-    "excerpt_end": 69
+    "excerpt_start": 0,
+    "excerpt_end": 116.0
   },
   {
     "case_id": "H065",
@@ -220,11 +220,11 @@
     "clip_end": 166,
     "duration": 166,
     "required_filename": "H123.mp4",
-    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H123.mp4",
-    "time_zero": "Short excerpt: playback 0 = original review time 92 s; ends at 132 s. Original annotations are preserved.",
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H123.mp4?v=b05da138ba90",
+    "time_zero": "Playback starts at original review time zero. Full source video used because it is shorter than 180 seconds.",
     "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
-    "excerpt_start": 92,
-    "excerpt_end": 132
+    "excerpt_start": 0,
+    "excerpt_end": 166.1
   },
   {
     "case_id": "H064",
@@ -365,11 +365,11 @@
     "clip_end": 130,
     "duration": 130,
     "required_filename": "H081.mp4",
-    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H081.mp4",
-    "time_zero": "Short excerpt: playback 0 = original review time 98 s; ends at 130 s. Original annotations are preserved.",
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H081.mp4?v=4e091ba17c5c",
+    "time_zero": "Playback starts at original review time zero. Full source video used because it is shorter than 180 seconds.",
     "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
-    "excerpt_start": 98,
-    "excerpt_end": 130
+    "excerpt_start": 0,
+    "excerpt_end": 130.1
   },
   {
     "case_id": "H144",
@@ -393,10 +393,10 @@
     "clip_end": 168,
     "duration": 168,
     "required_filename": "H086.mp4",
-    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H086.mp4",
-    "time_zero": "Short excerpt: playback 0 = original review time 124 s; ends at 164 s. Original annotations are preserved.",
+    "required_public_media_url": "https://jinsuby.github.io/ProactiveCoach/media/clips/H086.mp4?v=9f5fd3223994",
+    "time_zero": "Playback starts at original review time zero. Full source video used because it is shorter than 180 seconds.",
     "public_redistribution_permission": "HoloAssist CDLA-Permissive 2.0; license text accompanies clips",
-    "excerpt_start": 124,
-    "excerpt_end": 164
+    "excerpt_start": 0,
+    "excerpt_end": 168.1
   }
 ]

@@ -34,7 +34,7 @@
   function choose(lv, unit) {
     stop(); level = lv; selected = {level: lv, index: unit.index};
     renderLevels(); renderList(); renderInspector(); seek(eventTime(unit));
-    $('event-status').textContent = `Selected ${lv} ${unit.number}. ${unit.guide_time === null ? 'No guidance; showing event start' : 'Guidance at'} ${sec(eventTime(unit))} in the original review clip.${eventTime(unit) < clipStart() ? ' Earlier context: playback stays at excerpt start.' : ''}`;
+    $('event-status').textContent = `Selected ${lv} ${unit.number}. ${unit.guide_time === null ? 'No guidance; showing event start' : 'Guidance at'} ${sec(eventTime(unit))} in the original review clip.${eventTime(unit) < clipStart() ? ' Earlier context: playback stays at the viewing-window start.' : ''}`;
   }
   function renderLevels() {
     document.querySelectorAll('[data-explorer-level]').forEach(button => {
@@ -51,7 +51,7 @@
     const timing = el('dl', 'event-facts');
     [['Original event span', `${sec(u.start)} – ${sec(u.end)}`], ['Original guidance timestamp', u.guide_time === null ? 'None recorded' : sec(u.guide_time)], ['Parent', u.parent === null ? 'Task' : `${title(levels[levels.indexOf(selected.level) - 1])} ${record.units[levels[levels.indexOf(selected.level) - 1]].find(p => p.index === u.parent)?.number ?? u.parent}`]].forEach(([k, v]) => { timing.append(el('dt', '', k), el('dd', '', v)); });
     target.append(timing, el('blockquote', '', u.guide === null ? 'No guidance annotation for this event.' : u.guide));
-    target.append(el('p', 'note', 'Original annotation timestamps are unchanged. Excerpt playback time = original-review time minus the excerpt start. Earlier-context selections seek to the excerpt start.'));
+    target.append(el('p', 'note', 'Original annotation timestamps are unchanged. Playback begins at original-review time zero. Event spans and guidance timestamps are preserved.'));
   }
   function renderList() {
     const list = $('annotation-list'); list.replaceChildren();
@@ -113,7 +113,7 @@
       if (!rows.length) slot.append(el('p', '', 'No guidance annotation at or before this time.'));
       else rows.forEach(u => {
         const b = el('button', 'latest-guide'); b.type = 'button';
-        b.append(el('span', 'guide-issued', `${u.number} · ${u.guide_time < clipStart() ? 'Earlier context · original ' + sec(u.guide_time) : 'Excerpt ' + sec(localTime(u.guide_time)) + ' · original ' + sec(u.guide_time)}`), el('span', '', u.guide));
+        b.append(el('span', 'guide-issued', `${u.number} · ${u.guide_time < clipStart() ? 'Earlier context · original ' + sec(u.guide_time) : 'Playback ' + sec(localTime(u.guide_time)) + ' · original ' + sec(u.guide_time)}`), el('span', '', u.guide));
         b.addEventListener('click', () => choose(lv, u)); slot.append(b);
       });
     });
@@ -125,9 +125,9 @@
       if (Math.abs(video.currentTime - target) > .001) video.currentTime = target;
     }
     $('annotation-seek').value = localTime(cursor);
-    $('annotation-seek').setAttribute('aria-valuetext', `${sec(localTime(cursor))} of ${sec(clipDuration())} in excerpt; original time ${sec(cursor)}`);
+    $('annotation-seek').setAttribute('aria-valuetext', `${sec(localTime(cursor))} of ${sec(clipDuration())} in video; original time ${sec(cursor)}`);
     $('cursor-time').textContent = sec(localTime(cursor));
-    $('source-time').textContent = `Original review time: ${sec(cursor)} · excerpt ${sec(clipStart())}–${sec(clipEnd())}`;
+    $('source-time').textContent = `Original review time: ${sec(cursor)} · shown from the beginning`;
     document.querySelectorAll('.track-playhead').forEach(p => p.style.left = `${localTime(cursor) / clipDuration() * 100}%`);
     document.querySelectorAll('.event-band').forEach(b => {
       const u = record.units[b.dataset.level].find(u => u.index === Number(b.dataset.unitIndex));
@@ -155,21 +155,21 @@
     if (media) {
       video.src = media.src; video.poster = media.poster; video.playbackRate = Number($('playback-speed').value);
       $('download-video').href = media.src;
-      $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} excerpt from original ${sec(clipStart())}–${sec(clipEnd())}. Silent, compressed source video (10 fps).`;
+      $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} · full procedure from 0 s. Silent, web-compressed source video (10 fps).`;
     } else { video.removeAttribute('src'); video.removeAttribute('poster'); }
     video.load();
     $('annotation-play').textContent = mediaAvailable ? 'Play video' : 'Play annotations';
     $('case-goal').textContent = record.goal; $('case-query').textContent = record.query;
-    $('case-info').textContent = `${record.id} · ${record.video.source_dataset} · ${record.video.domain} · ${sec(clipDuration())} excerpt · test split`;
+    $('case-info').textContent = `${record.id} · ${record.video.source_dataset} · ${record.video.domain} · ${sec(clipDuration())} · from the beginning · test split`;
     $('media-record').textContent = record.video.record_id;
-    $('media-interval').textContent = `Excerpt ${sec(clipStart())} – ${sec(clipEnd())} within the original review clip`;
+    $('media-interval').textContent = `Original review interval: ${sec(clipStart())} – ${sec(clipEnd())}`;
     $('media-dataset').textContent = record.video.source_dataset;
     $('clip-duration').textContent = sec(clipDuration());
     $('annotation-seek').max = clipDuration();
     const phase = $('phase-filter'); phase.replaceChildren(new Option('All phases', 'all'));
     record.units.phase.filter(inExcerpt).forEach(u => phase.append(new Option(`${u.number} · ${u.text}`, u.index)));
-    renderLevels(); renderTimeline(); renderList(); renderInspector(); seek(clipStart());
-    $('explorer-status').textContent = `${cases.length} short video examples · original annotations preserved · ground truth`;
+    renderLevels(); renderTimeline(); renderList(); renderInspector(); seek(clipStart()); $('annotation-list').scrollTop = 0;
+    $('explorer-status').textContent = `${cases.length} full-procedure video examples · original annotations preserved · ground truth`;
   }
   $('example-select').addEventListener('change', e => loadCase(e.target.value));
   $('phase-filter').addEventListener('change', () => { stop(); selected = null; seek.lastKey = null; renderTimeline(); renderList(); renderInspector(); seek(cursor); });
