@@ -1,10 +1,33 @@
 # ProactiveCoach
 
-**Improving Proactive AI Assistance with Hierarchical Procedural Understanding**
+**[Improving Proactive AI Assistance with Hierarchical Procedural Understanding](https://arxiv.org/abs/2610.06505)**
+
+Jin-Seop Lee<sup>1</sup>, TaeYeon Won<sup>1</sup>, SeongJun Jung<sup>1</sup>, JungHoon Kim<sup>1</sup>, Boyang Albert Li<sup>2</sup>, Jin-Young Park<sup>1</sup>, Jaehong Yoon<sup>2,*</sup>, Jee-Hyong Lee<sup>1,*</sup>
+
+<sup>1</sup> Department of Artificial Intelligence, Sungkyunkwan University, Republic of Korea  
+<sup>2</sup> College of Computing and Data Science, Nanyang Technological University, Singapore  
+<sup>*</sup> Corresponding authors
+
+[Paper (PDF)](https://arxiv.org/pdf/2610.06505) · [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) · [BibTeX](#citation)
 
 [Project page](https://jinsuby.github.io/ProactiveCoach/) · [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) · [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
 
 ProactiveCoach connects **phases, steps, and actions** to help an assistant decide what to say, when to respond, and how much detail to provide during a procedural task.
+
+## Citation
+
+```bibtex
+@misc{proactive,
+  title = {Improving Proactive AI Assistance with Hierarchical Procedural Understanding},
+  author = {Lee, Jin-Seop and Won, TaeYeon and Jung, SeongJun and Kim, JungHoon and Li, Boyang Albert and Park, Jin-Young and Yoon, Jaehong and Lee, Jee-Hyong},
+  year = {2026},
+  note = {Preprint},
+  eprint = {2610.06505},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  url = {https://arxiv.org/abs/2610.06505}
+}
+```
 
 ## Highlights
 

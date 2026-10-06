@@ -3,3 +3,19 @@ const tabs=[...document.querySelectorAll('[role="tab"]')];function selectTab(but
 tabs.forEach((b,i)=>{b.addEventListener('click',()=>selectTab(b));b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];selectTab(n);n.focus()}})});selectTab(tabs[0]);
 const results=[['Phase',26.65,62.69],['Step',27.83,58.96],['Action',27.96,53.24],['EgoProactive',33.39,48.59]];
 const charts=document.querySelector('#result-bars');results.forEach(([name,base,ours])=>{const d=document.createElement('div');d.innerHTML=`<div class="chart-name">${name}</div><div class="bar-row"><div class="bar base" style="width:${base/70*80}%" aria-hidden="true"></div><span><span class="sr-only">Base: </span>${base.toFixed(2)}</span></div><div class="bar-row"><div class="bar ours" style="width:${ours/70*80}%" aria-hidden="true"></div><span><span class="sr-only">Our training: </span>${ours.toFixed(2)}</span></div>`;charts.appendChild(d)});
+
+document.querySelector('#copy-bibtex').addEventListener('click', async () => {
+  const code = document.querySelector('#citation-text');
+  const status = document.querySelector('#citation-status');
+  try {
+    await navigator.clipboard.writeText(code.textContent);
+    status.textContent = 'Copied BibTeX.';
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents(code);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    status.textContent = 'Citation selected. Press Ctrl+C or Command+C to copy.';
+  }
+});
