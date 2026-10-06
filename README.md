@@ -2,7 +2,7 @@
 
 **[Improving Proactive AI Assistance with Hierarchical Procedural Understanding](https://arxiv.org/abs/2610.06505)**
 
-[Jin-Seop Lee](https://jinsuby.github.io/)<sup>1</sup>, [TaeYeon Won](https://www.linkedin.com/in/taeyeon3073)<sup>1</sup>, [SeongJun Jung](https://www.linkedin.com/in/seongjun-jung-3939223b2)<sup>1</sup>, JungHoon Kim<sup>1</sup>, [Boyang Albert Li](http://www.boyangli.org/index.html)<sup>2</sup>, Jin-Young Park<sup>1</sup>, [Jaehong Yoon](https://jaehong31.github.io/)<sup>2,&#42;</sup>, [Jee-Hyong Lee](https://iislab.skku.edu/members/)<sup>1,&#42;</sup>
+[Jin-Seop Lee](https://jinsuby.github.io/)<sup>1</sup>, [TaeYeon Won](https://www.linkedin.com/in/taeyeon3073)<sup>1</sup>, [SeongJun Jung](https://www.linkedin.com/in/seongjun-jung-3939223b2)<sup>1</sup>, JungHoon Kim<sup>1</sup>, [Boyang Albert Li](http://www.boyangli.org/index.html)<sup>2</sup>, JinYeong Bak<sup>1</sup>, [Jaehong Yoon](https://jaehong31.github.io/)<sup>2,&#42;</sup>, [Jee-Hyong Lee](https://iislab.skku.edu/members/)<sup>1,&#42;</sup>
 
 <sup>1</sup> Department of Artificial Intelligence, Sungkyunkwan University, Republic of Korea  
 <sup>2</sup> College of Computing and Data Science, Nanyang Technological University, Singapore  
@@ -19,7 +19,7 @@ ProactiveCoach connects **phases, steps, and actions** to help an assistant deci
 ```bibtex
 @misc{proactive,
   title = {Improving Proactive AI Assistance with Hierarchical Procedural Understanding},
-  author = {Lee, Jin-Seop and Won, TaeYeon and Jung, SeongJun and Kim, JungHoon and Li, Boyang Albert and Park, Jin-Young and Yoon, Jaehong and Lee, Jee-Hyong},
+  author = {Lee, Jin-Seop and Won, TaeYeon and Jung, SeongJun and Kim, JungHoon and Li, Boyang Albert and Bak, JinYeong and Yoon, Jaehong and Lee, Jee-Hyong},
   year = {2026},
   note = {Preprint},
   eprint = {2610.06505},
