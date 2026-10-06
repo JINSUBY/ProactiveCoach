@@ -8,9 +8,9 @@
 <sup>2</sup> College of Computing and Data Science, Nanyang Technological University, Singapore  
 <sup>&#42;</sup> Corresponding authors
 
-[Paper (PDF)](https://arxiv.org/pdf/2610.06505) �� [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) �� [BibTeX](#citation)
+[Paper (PDF)](https://arxiv.org/pdf/2610.06505) · [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) · [BibTeX](#citation)
 
-[Project page](https://jinsuby.github.io/ProactiveCoach/) �� [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) �� [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
+[Project page](https://jinsuby.github.io/ProactiveCoach/) · [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) · [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
 
 ProactiveCoach connects **phases, steps, and actions** to help an assistant decide what to say, when to respond, and how much detail to provide during a procedural task.
 
