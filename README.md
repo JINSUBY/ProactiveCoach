@@ -2,15 +2,15 @@
 
 **[Improving Proactive AI Assistance with Hierarchical Procedural Understanding](https://arxiv.org/abs/2610.06505)**
 
-Jin-Seop Lee<sup>1</sup>, TaeYeon Won<sup>1</sup>, SeongJun Jung<sup>1</sup>, JungHoon Kim<sup>1</sup>, Boyang Albert Li<sup>2</sup>, Jin-Young Park<sup>1</sup>, Jaehong Yoon<sup>2,&#42;</sup>, Jee-Hyong Lee<sup>1,&#42;</sup>
+[Jin-Seop Lee](https://jinsuby.github.io/)<sup>1</sup>, [TaeYeon Won](https://www.linkedin.com/in/taeyeon3073)<sup>1</sup>, [SeongJun Jung](https://www.linkedin.com/in/seongjun-jung-3939223b2)<sup>1</sup>, JungHoon Kim<sup>1</sup>, [Boyang Albert Li](http://www.boyangli.org/index.html)<sup>2</sup>, Jin-Young Park<sup>1</sup>, [Jaehong Yoon](https://jaehong31.github.io/)<sup>2,&#42;</sup>, [Jee-Hyong Lee](https://iislab.skku.edu/members/)<sup>1,&#42;</sup>
 
 <sup>1</sup> Department of Artificial Intelligence, Sungkyunkwan University, Republic of Korea  
 <sup>2</sup> College of Computing and Data Science, Nanyang Technological University, Singapore  
 <sup>&#42;</sup> Corresponding authors
 
-[Paper (PDF)](https://arxiv.org/pdf/2610.06505) · [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) · [BibTeX](#citation)
+[Paper (PDF)](https://arxiv.org/pdf/2610.06505) �� [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) �� [BibTeX](#citation)
 
-[Project page](https://jinsuby.github.io/ProactiveCoach/) · [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) · [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
+[Project page](https://jinsuby.github.io/ProactiveCoach/) �� [Video examples](https://jinsuby.github.io/ProactiveCoach/#examples) �� [Dataset preview](https://anonymous.4open.science/r/dataset-review-7c3e/)
 
 ProactiveCoach connects **phases, steps, and actions** to help an assistant decide what to say, when to respond, and how much detail to provide during a procedural task.
 
@@ -106,3 +106,4 @@ Each entry point provides `--help`. See [data formats](docs/DATA_FORMATS.md), [d
 ## License and acknowledgments
 
 See [LICENSE](LICENSE) for the code license and third-party notices. Example videos are from [HoloAssist](https://holoassist.github.io/) under [CDLA-Permissive 2.0](site/licenses/CDLA-Permissive-2.0.txt); see [video credits](docs/VIDEO_SAMPLE.md). External models and datasets retain their own licenses.
+
