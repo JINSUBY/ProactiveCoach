@@ -2,11 +2,11 @@
 
 **[Improving Proactive AI Assistance with Hierarchical Procedural Understanding](https://arxiv.org/abs/2610.06505)**
 
-Jin-Seop Lee<sup>1</sup>, TaeYeon Won<sup>1</sup>, SeongJun Jung<sup>1</sup>, JungHoon Kim<sup>1</sup>, Boyang Albert Li<sup>2</sup>, Jin-Young Park<sup>1</sup>, Jaehong Yoon<sup>2,*</sup>, Jee-Hyong Lee<sup>1,*</sup>
+Jin-Seop Lee<sup>1</sup>, TaeYeon Won<sup>1</sup>, SeongJun Jung<sup>1</sup>, JungHoon Kim<sup>1</sup>, Boyang Albert Li<sup>2</sup>, Jin-Young Park<sup>1</sup>, Jaehong Yoon<sup>2,&#42;</sup>, Jee-Hyong Lee<sup>1,&#42;</sup>
 
 <sup>1</sup> Department of Artificial Intelligence, Sungkyunkwan University, Republic of Korea  
 <sup>2</sup> College of Computing and Data Science, Nanyang Technological University, Singapore  
-<sup>*</sup> Corresponding authors
+<sup>&#42;</sup> Corresponding authors
 
 [Paper (PDF)](https://arxiv.org/pdf/2610.06505) · [arXiv:2610.06505](https://arxiv.org/abs/2610.06505) · [BibTeX](#citation)
 
