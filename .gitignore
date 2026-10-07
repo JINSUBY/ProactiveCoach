@@ -24,3 +24,7 @@ wandb/
 Thumbs.db
 .vscode/
 .idea/
+
+# Full-length research demos for the paper website.
+!/site/media/clips/H062.mp4
+!/site/media/clips/H064.mp4

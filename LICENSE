@@ -32,3 +32,8 @@ No model weights or dependency source distributions are bundled.
 
 sF1 implements the GuideMe temporal–semantic matching protocol; gF1 and PQS
 follow PWR. The PQS judging rubric is provided with its evaluation driver.
+
+Ego-Exo4D videos and posters (H062 and H064) in site/media/clips retain
+their source owners' rights and are governed by the applicable Ego-Exo4D
+agreement, not the MIT code license above. Attribution and the source/license
+notice are provided in site/licenses/Ego-Exo4D-NOTICE.txt.

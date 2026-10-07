@@ -49,7 +49,7 @@
       button.setAttribute('aria-pressed', String(selected?.level === level && selected.index === u.index));
       const stamp = el('span', 'event-stamp', u.guide_time === null ? 'No guide' : u.guide_time < clipStart() ? 'Earlier context' : sec(localTime(u.guide_time)));
       const body = el('span', 'event-copy');
-      body.append(el('strong', '', `${u.number} · ${u.text}`), el('span', '', u.guide === null ? 'No guidance annotation.' : u.guide), el('small', '', `Original event: ${sec(u.start)} – ${sec(u.end)}`));
+      body.append(el('strong', '', `${u.number} · ${u.text}`), el('span', '', u.guide ? u.guide : 'No guidance annotation.'), el('small', '', `Original event: ${sec(u.start)} – ${sec(u.end)}`));
       button.append(stamp, body); button.addEventListener('click', () => choose(level, u)); list.append(button);
     });
   }
@@ -141,6 +141,18 @@
     if (media) {
       video.src = media.src; video.poster = media.poster; video.playbackRate = Number($('playback-speed').value);
       $('download-video').href = media.src;
+      $('media-source').href = media.source_url;
+      $('media-source').textContent = `${media.dataset} source`;
+      $('media-license').href = media.license;
+      $('media-license').textContent = media.license_label || 'CDLA-Permissive 2.0 license';
+      $('media-citation-wrap').hidden = !media.citation_url;
+      if (media.citation_url) {
+        $('media-citation').href = media.citation_url;
+        $('media-citation').textContent = media.citation_label;
+      } else {
+        $('media-citation').removeAttribute('href');
+        $('media-citation').textContent = '';
+      }
       $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} · from 0 s · silent video.`;
     } else { video.removeAttribute('src'); video.removeAttribute('poster'); }
     video.load();

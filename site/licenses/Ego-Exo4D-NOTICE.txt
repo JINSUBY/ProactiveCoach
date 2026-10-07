@@ -1,0 +1,18 @@
+Ego-Exo4D media notice
+
+H062 and H064 are research demonstration videos accompanying the ProactiveCoach paper.
+Source media: Ego-Exo4D, supplied in ThinkStream_Offline_386_Full.zip.
+The original source owners retain their rights. These videos and posters are governed
+by the applicable Ego-Exo4D license agreement, not the repository's MIT code license.
+The user confirmed acceptance for the associated research paper website use.
+No new license or general redistribution permission is granted here.
+
+Citation:
+K. Grauman et al. (2024). Ego-Exo4D: Understanding Skilled Human Activity from
+First- and Third-Person Perspectives. Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition (CVPR).
+https://arxiv.org/abs/2311.18259
+
+Dataset: https://ego-exo4d-data.org/
+Public license reference: https://ego4d-data.org/pdfs/Ego-Exo4D-Model-License.pdf
+The public reference is marked DRAFT FOR REVIEW. The accepted agreement governs.

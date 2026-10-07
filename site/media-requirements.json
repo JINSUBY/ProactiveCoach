@@ -128,8 +128,13 @@
     "duration": 246,
     "required_filename": "H062.mp4",
     "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "time_zero": "Clip-relative annotation time zero matches video time zero. No offset subtraction. Original recording offset and camera remain unknown.",
+    "public_redistribution_permission": "User confirmed acceptance of the applicable Ego-Exo4D agreement for the associated academic paper website. See licenses/Ego-Exo4D-NOTICE.txt.",
+    "local_media_path": "media/clips/H062.mp4",
+    "excerpt_start": 0,
+    "excerpt_end": 246,
+    "source_camera_id": null,
+    "original_recording_offset_seconds": null
   },
   {
     "case_id": "H205",
@@ -236,8 +241,13 @@
     "duration": 216,
     "required_filename": "H064.mp4",
     "required_public_media_url": null,
-    "time_zero": "Must match preview clip time zero; source timeline/camera to be confirmed",
-    "public_redistribution_permission": "Not supplied"
+    "time_zero": "Clip-relative annotation time zero matches video time zero. No offset subtraction. Original recording offset and camera remain unknown.",
+    "public_redistribution_permission": "User confirmed acceptance of the applicable Ego-Exo4D agreement for the associated academic paper website. See licenses/Ego-Exo4D-NOTICE.txt.",
+    "local_media_path": "media/clips/H064.mp4",
+    "excerpt_start": 0,
+    "excerpt_end": 216,
+    "source_camera_id": null,
+    "original_recording_offset_seconds": null
   },
   {
     "case_id": "H014",
