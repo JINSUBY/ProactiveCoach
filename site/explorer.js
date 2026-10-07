@@ -140,25 +140,10 @@
     $('media-error').textContent = '';
     if (media) {
       video.src = media.src; video.poster = media.poster; video.playbackRate = Number($('playback-speed').value);
-      $('download-video').href = media.src;
-      $('media-source').href = media.source_url;
-      $('media-source').textContent = `${media.dataset} source`;
-      $('media-license').href = media.license;
-      $('media-license').textContent = media.license_label || 'CDLA-Permissive 2.0 license';
-      $('media-citation-wrap').hidden = !media.citation_url;
-      if (media.citation_url) {
-        $('media-citation').href = media.citation_url;
-        $('media-citation').textContent = media.citation_label;
-      } else {
-        $('media-citation').removeAttribute('href');
-        $('media-citation').textContent = '';
-      }
-      $('video-caption').textContent = `${id} · ${media.dataset} · ${sec(clipDuration())} · from 0 s · silent video.`;
     } else { video.removeAttribute('src'); video.removeAttribute('poster'); }
     video.load();
     $('annotation-play').textContent = mediaAvailable ? 'Play video' : 'Play annotations';
-    $('case-goal').textContent = record.goal; $('case-query').textContent = record.query;
-    $('case-info').textContent = `${record.id} · ${record.video.source_dataset} · ${record.video.domain} · ${sec(clipDuration())} · from the beginning · test split`;
+    $('case-query').textContent = record.query;
     $('media-record').textContent = record.video.record_id;
     $('media-interval').textContent = `Original review interval: ${sec(clipStart())} – ${sec(clipEnd())}`;
     $('media-dataset').textContent = record.video.source_dataset;
@@ -176,7 +161,7 @@
     if (mediaAvailable) {
       if (!video.paused) { stop(); return; }
       if (video.ended) seek(clipStart());
-      video.play().catch(() => { $('media-error').textContent = 'Video could not play. Try the native controls or download the clip.'; });
+      video.play().catch(() => { $('media-error').textContent = 'Video could not play. Try the native controls.'; });
       return;
     }
     if (playing) { stop(); return; }
