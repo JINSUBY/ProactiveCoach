@@ -34,18 +34,27 @@ footer{padding:30px 0;color:var(--muted);font-size:.82rem;text-align:center;bord
 .results-table-wrap th:first-child{text-align:left}.results-table-wrap tbody th{font-weight:400}
 .results-table-wrap thead{background:#eef2f6}.results-note{font-size:.9rem;color:var(--muted)}
 
-/* Complete main-results metrics stay readable within a horizontal scroll region. */
-.main-results table{width:1560px;table-layout:fixed;font-size:.84rem}
-.main-results .model-column{width:220px}.main-results .ours-column{width:60px}
-.main-results caption span{position:sticky;left:0;display:block;max-width:min(880px,calc(100vw - 48px))}
-.main-results th,.main-results td{padding:10px 12px}
-.main-results thead th{text-align:center}
-.main-results thead tr:first-child th[colspan]{text-align:left}
-.main-results thead tr:first-child th:last-child{text-align:right}
-.main-results thead tr:first-child th:first-child,.main-results tbody tr:not(.model-group) th{position:sticky;left:0;z-index:1;background:var(--mint)}
-.main-results thead tr:first-child th:first-child{background:#eef2f6}
-.main-results .model-group th{font-weight:600;background:#eef2f6;text-align:left}
+/* The full table fits desktop; narrower screens expose one complete metric group. */
+.main-results{max-width:100%}
+.main-results table{width:100%;min-width:940px;table-layout:fixed;font-size:.875rem}
+.main-results .model-column{width:170px}.main-results .ours-column{width:40px}
+.main-results caption span{display:block;max-width:min(100%,calc(100vw - 48px))}
+.main-results th,.main-results td{padding:10px 4px}
+.main-results thead th{text-align:center;white-space:normal}
+.main-results thead tr:nth-child(2) th,.main-results thead tr:nth-child(3) th{text-align:center}
+.main-results tbody tr:not(.model-group) th{white-space:normal;overflow-wrap:anywhere}
+.main-results .model-group th{font-weight:600;background:#eef2f6;text-align:left;white-space:normal}
 .main-results .ours-row td{background:#eff6ff}
 .main-results td:nth-child(2){text-align:center}
-.adaptation-figure{max-width:560px;margin:24px auto 32px}
-@media(max-width:640px){.main-results .model-column{width:150px}.main-results tbody tr:not(.model-group) th{white-space:normal}}
+.results-controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.results-controls[hidden]{display:none}
+.results-controls button{border:1px solid var(--line);border-radius:5px;padding:8px 12px;background:#fff;color:var(--ink);font-size:14px;cursor:pointer;min-height:40px}
+.results-controls button[aria-pressed="true"]{background:#edf2f7;border-color:#8396ae;font-weight:600}
+.main-results.is-grouped{max-width:880px}
+.main-results.is-grouped table{min-width:0;font-size:.95rem}
+.main-results.is-grouped .model-column{width:32%}.main-results.is-grouped .ours-column{width:44px}
+.dataset-figures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:880px;margin:32px auto}
+.adaptation-figure{max-width:380px;margin:24px auto 32px}
+@media(max-width:700px){.dataset-figures{grid-template-columns:1fr;max-width:520px}}
+@media(max-width:640px){.main-results.is-grouped table{font-size:14px}.main-results.is-grouped .ours-column{width:36px}.main-results th,.main-results td{padding:10px 2px}.adaptation-figure{max-width:300px}}
+@media(max-width:380px){.main-results.is-grouped .model-column{width:28%}}
