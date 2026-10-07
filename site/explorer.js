@@ -153,7 +153,8 @@
     $('clip-duration').textContent = sec(clipDuration());
     $('annotation-seek').max = clipDuration();
     renderLevels(); renderTimeline(); renderList(); seek(clipStart()); $('annotation-list').scrollTop = 0;
-    $('explorer-status').textContent = `${cases.length} video examples · ground-truth guidance`;
+    $('explorer-status').textContent = '';
+    $('explorer-status').hidden = true;
   }
   $('example-select').addEventListener('change', e => loadCase(e.target.value));
   document.querySelectorAll('[data-explorer-level]').forEach(b => b.addEventListener('click', () => { level = b.dataset.explorerLevel; selected = null; renderLevels(); renderList(); seek(cursor); }));
@@ -185,11 +186,11 @@
   Promise.all([readJSON('examples.json'), readJSON('media.json'), readJSON('featured-examples.json')]).then(([data, media, featured]) => {
     mediaCatalog = media;
     cases = featured.map(id => data.find(c => c.id === id));
-    if (cases.length !== 5 || cases.some(c => !c || !media[c.id]) || new Set(featured).size !== 5) throw Error('Invalid featured examples');
+    if (!cases.length || cases.some(c => !c || !media[c.id]) || new Set(featured).size !== featured.length) throw Error('Invalid featured examples');
     const select = $('example-select'); select.replaceChildren();
     cases.forEach(x => select.append(new Option(`${x.id} · ${x.goal}`, x.id)));
     document.querySelectorAll('#examples [disabled]').forEach(b => b.disabled = false);
     const first = cases.find(x => mediaCatalog[x.id]) || cases[0];
     select.value = first.id; loadCase(first.id);
-  }).catch(() => { $('explorer-status').textContent = 'Examples could not load. Reload or open the dataset preview.'; });
+  }).catch(() => { $('explorer-status').hidden = false; $('explorer-status').textContent = 'Examples could not load. Reload or open the dataset preview.'; });
 })();

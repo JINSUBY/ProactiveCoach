@@ -8,7 +8,7 @@
 
 <section id="dataset" class="dataset-section"><div class="container">
 <h2>Dataset</h2>
-<figure class="figure-frame"><a href="assets/dataset-hierarchy.png" target="_blank" rel="noopener" aria-label="Open Figure 2 at full resolution"><img src="assets/dataset-hierarchy.png" alt="Figure 2: a pasta-making video with a phase composed of steps and actions, and guidance issued at 57, 75, 105, 158 and 171 seconds, separated by silent intervals." width="2045" height="883" loading="lazy"></a><figcaption>Figure 2. Hierarchically structured guidance in ProactiveCoach-Instruct and ProactiveCoachBench. <a href="assets/dataset-hierarchy.png" target="_blank" rel="noopener">Open full-size figure</a>.</figcaption></figure>
+<figure class="figure-frame"><a href="assets/dataset-hierarchy.png" target="_blank" rel="noopener" aria-label="Open Figure 2 at full resolution"><img src="assets/dataset-hierarchy.png" alt="Figure 2: a pasta-making video with a phase composed of steps and actions, and guidance issued at 57, 75, 105, 158 and 171 seconds, separated by silent intervals." width="2045" height="883" loading="lazy"></a><figcaption>Figure 2. Hierarchically structured guidance in ProactiveCoach-Instruct and ProactiveCoachBench.</figcaption></figure>
 <div class="research-copy"><p>Each sample pairs a task goal and video with <strong>phase, step, and action</strong> guidance, event spans, and guidance times. A phase reaches an intermediate goal through multiple steps; a step achieves a specific outcome through multiple actions; an action is an observable, fine-grained event that can be guided independently.</p>
 <p>Guidance timing is defined separately at each level: the next guidance follows completion of the previously guided event. When several levels require new guidance, their instructions are combined into one response. Otherwise, the assistant remains silent.</p>
 <p><strong>ProactiveCoach-Instruct</strong> contains 10,007 training samples, and <strong>ProactiveCoachBench</strong> contains 1,112 evaluation samples. Together they cover 7,232 first-person videos from eight source datasets. <a href="https://arxiv.org/pdf/2610.06505#page=4">Dataset details in the paper</a>.</p></div>
@@ -31,12 +31,12 @@
 <tr><th scope="row">Phase &rarr; Step</th><td>8.49</td><td><strong>66.56</strong></td></tr>
 <tr><th scope="row">Action &rarr; Step</th><td>18.70</td><td><strong>73.70</strong></td></tr>
 </tbody></table></div>
-<p class="research-copy results-note">Avg. is the mean of sF1, gF1, and PQS, which assess guidance quality and response/silence decisions. Values above are reported in the paper; gains are differences of the reported scores. <a href="https://arxiv.org/pdf/2610.06505#page=9">Full results and evaluation details</a>.</p>
+<p class="research-copy results-note">Avg. is the mean of sF1, gF1, and PQS, which assess guidance quality and response/silence decisions.</p>
 </div></section>
 
 <section class="annotation-section" id="examples"><div class="container">
 
-<div class="explorer-intro"><div><h2>Qualitative Examples</h2><p class="lead">Watch five HoloAssist examples from the beginning, with synchronized phase, step, and action annotations. Select an event to jump to its guidance time.</p></div></div>
+<div class="explorer-intro"><div><h2>Qualitative Examples</h2></div></div>
 <p id="explorer-status" class="explorer-loading" role="status">Loading examples&hellip;</p>
 <div class="actual-controls"><label>Example<select id="example-select" disabled aria-label="Choose a dataset example"><option>Loading&hellip;</option></select></label></div>
 <div class="case-heading"><p id="case-info" class="note"></p><h3 id="case-goal"></h3><div class="query-strip"><b>USER QUERY</b><span id="case-query"></span></div></div>
