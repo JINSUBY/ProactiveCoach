@@ -32,6 +32,7 @@ footer{padding:30px 0;color:var(--muted);font-size:.82rem;text-align:center;bord
 .results-table-wrap caption{text-align:left;font-size:.9rem;color:var(--muted);padding-bottom:12px}
 .results-table-wrap th,.results-table-wrap td{padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 .results-table-wrap th:first-child{text-align:left}.results-table-wrap tbody th{font-weight:400}
+#table-4 thead th[scope="colgroup"]{text-align:center}
 .results-table-wrap thead{background:#eef2f6}.results-note{font-size:.9rem;color:var(--muted)}
 
 /* The full table fits desktop; narrower screens expose one complete metric group. */
