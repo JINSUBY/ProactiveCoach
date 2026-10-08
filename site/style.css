@@ -32,7 +32,13 @@ footer{padding:30px 0;color:var(--muted);font-size:.82rem;text-align:center;bord
 .results-table-wrap caption{text-align:left;font-size:.9rem;color:var(--muted);padding-bottom:12px}
 .results-table-wrap th,.results-table-wrap td{padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 .results-table-wrap th:first-child{text-align:left}.results-table-wrap tbody th{font-weight:400}
-#table-4 thead th[scope="colgroup"],#table-4 thead tr:last-child th,#table-4 tbody td{text-align:center}
+/* Keep labels left-aligned and give each summary metric an equal, centered column. */
+#table-4,#table-6{table-layout:fixed}
+#table-4 .label-column,#table-6 .label-column{width:36%}
+#table-4 th,#table-6 th{white-space:normal;overflow-wrap:anywhere}
+#table-4 thead th[scope="colgroup"],#table-4 thead tr:last-child th,#table-4 td,#table-6 thead th:not(:first-child),#table-6 td{text-align:center}
+@media(max-width:640px){#table-4,#table-6{font-size:.875rem}#table-4 th,#table-4 td,#table-6 th,#table-6 td{padding:10px 6px}}
+@media(max-width:380px){#table-4 th,#table-4 td{padding-left:3px;padding-right:3px}}
 .results-table-wrap thead{background:#eef2f6}.results-note{font-size:.9rem;color:var(--muted)}
 
 /* The full table fits desktop; narrower screens expose one complete metric group. */

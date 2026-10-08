@@ -55,7 +55,7 @@ Figure 3 crop: x=891, y=1770, width=813, height=480. Figure 4 crop: x=2127, y=17
 <tr class="ours-row"><th scope="row">Qwen3.5-9B</th><td><span aria-label="Yes">&#10003;</span></td><td>50.50</td><td>72.79</td><td>60.08</td><td>61.13</td><td>48.24</td><td>71.29</td><td>56.90</td><td>58.81</td><td>50.56</td><td>66.17</td><td>47.58</td><td>54.77</td><td>36.67</td><td>62.17</td><td>46.73</td><td>48.52</td></tr>
 </tbody>
 </table></div>
-<div class="results-table-wrap" tabindex="0" role="region" aria-label="Scrollable supervision level ablation"><table id="table-4"><caption>Table 4: Ablation on supervision levels.</caption><thead><tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="4">ProactiveCoachBench Step</th></tr><tr><th scope="col">sF1</th><th scope="col">gF1</th><th scope="col">PQS</th><th scope="col">Avg.</th></tr></thead><tbody>
+<div class="results-table-wrap" tabindex="0" role="region" aria-label="Scrollable supervision level ablation"><table id="table-4"><caption>Table 4: Ablation on supervision levels.</caption><colgroup><col class="label-column"><col span="4"></colgroup><thead><tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="4">ProactiveCoachBench Step</th></tr><tr><th scope="col">sF1</th><th scope="col">gF1</th><th scope="col">PQS</th><th scope="col">Avg.</th></tr></thead><tbody>
 <tr><th scope="row">Step-only</th><td>41.01</td><td>64.53</td><td>44.62</td><td>50.06</td></tr>
 <tr><th scope="row">Phase-Step</th><td>48.21</td><td>66.22</td><td>46.37</td><td>53.60</td></tr>
 <tr><th scope="row">Step-Action</th><td>46.16</td><td>70.81</td><td>55.02</td><td>57.33</td></tr>
@@ -65,7 +65,7 @@ Figure 3 crop: x=891, y=1770, width=813, height=480. Figure 4 crop: x=2127, y=17
 <p>A lightweight router selects the requested level from the fine-tuned model's multi-level guidance.</p></div>
 <!-- Figure 6: rendered directly from arXiv:2610.06505v2, p. 9, at 300 dpi; crop x=1352, y=1970, width=736, height=830. -->
 <figure class="figure-frame adaptation-figure"><a href="assets/guidance-adaptation.png" target="_blank" rel="noopener" aria-label="Open Figure 6 at full resolution"><img src="assets/guidance-adaptation.png" alt="Figure 6: a user requests more detailed tomato preparation guidance at t=10. A small LLM router switches the displayed level from step to action while the guide model continues producing multi-level guidance." width="736" height="830" loading="lazy"></a><figcaption>Figure 6. Guidance-level adaptation with a lightweight router.</figcaption></figure>
-<div class="results-table-wrap" tabindex="0" role="region" aria-label="Scrollable guidance adaptation results"><table><caption>Table 6: Guidance-level adaptation Avg. (higher is better).</caption><thead><tr><th scope="col">Transition</th><th scope="col">In-context baseline</th><th scope="col">ProactiveCoach</th></tr></thead><tbody>
+<div class="results-table-wrap" tabindex="0" role="region" aria-label="Scrollable guidance adaptation results"><table id="table-6"><caption>Table 6: Guidance-level adaptation Avg. (higher is better).</caption><colgroup><col class="label-column"><col span="2"></colgroup><thead><tr><th scope="col">Transition</th><th scope="col">In-context baseline</th><th scope="col">Proactive<wbr>Coach</th></tr></thead><tbody>
 <tr><th scope="row">Step &rarr; Phase</th><td>9.46</td><td><strong>85.54</strong></td></tr>
 <tr><th scope="row">Step &rarr; Action</th><td>18.65</td><td><strong>57.93</strong></td></tr>
 <tr><th scope="row">Phase &rarr; Step</th><td>8.49</td><td><strong>66.56</strong></td></tr>
